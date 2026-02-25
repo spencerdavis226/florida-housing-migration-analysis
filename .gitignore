@@ -1,0 +1,22 @@
+# Private working notes (keep out of public repo)
+REFERENCE.md
+
+# macOS
+.DS_Store
+
+# Jupyter autosaves / checkpoints
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Editor / tooling
+.vscode/
+
+# Local secrets
+.env
