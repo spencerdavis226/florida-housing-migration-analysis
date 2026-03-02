@@ -168,7 +168,7 @@ Core dependencies include:
 - [x] Raw datasets integrated
 - [x] Zillow reshaped to panel format
 - [x] Census reshaped to panel format
-- [ ] Merge Zillow and Census datasets
+- [x] Merge Zillow and Census datasets
 - [ ] Annualize ZHVI + feature engineering
 - [ ] Exploratory data analysis (EDA)
 - [ ] Regression modeling
