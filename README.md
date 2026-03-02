@@ -95,6 +95,17 @@ This project evaluates county-level housing market dynamics to identify:
 - K-means clustering (with elbow method validation)
 - Geospatial choropleths for growth, migration, and clusters
 
+### 5. Feature Engineering
+
+Engineered modeling-ready features:
+
+- **YoY Growth** — Annual percent change in ZHVI
+- **Boom Intensity (2020–2022)** — Cumulative growth during surge period
+- **Cooling Intensity (2024 vs 2022)** — Growth deceleration metric
+- **Volatility** — Standard deviation of YoY growth (2021–2024)
+
+These features allow regression and clustering analysis.
+
 ---
 
 ## Deliverables
@@ -169,7 +180,7 @@ Core dependencies include:
 - [x] Zillow reshaped to panel format
 - [x] Census reshaped to panel format
 - [x] Merge Zillow and Census datasets
-- [ ] Annualize ZHVI + feature engineering
+- [x] Annualize ZHVI + feature engineering
 - [ ] Exploratory data analysis (EDA)
 - [ ] Regression modeling
 - [ ] Clustering
