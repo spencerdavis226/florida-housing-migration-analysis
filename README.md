@@ -122,18 +122,22 @@ This project evaluates county-level housing market dynamics to identify:
 ```
 florida-housing-migration-analysis/
 ├── README.md
+├── REFERENCE.md
 ├── requirements.txt
+├── .gitignore
+│
 ├── data/
 │   ├── raw/
+│   │   ├── co-est2024-alldata.csv
+│   │   └── County_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv
 │   └── processed/
+│       ├── zhvi_fl_long.csv
+│       └── census_fl_county_year.csv
+│
 ├── notebooks/
-│   ├── 01_data_loading.ipynb
-│   ├── 02_data_cleaning.ipynb
-│   ├── 03_feature_engineering.ipynb
-│   ├── 04_exploratory_analysis.ipynb
-│   ├── 05_regression.ipynb
-│   ├── 06_clustering.ipynb
-│   └── 07_geospatial.ipynb
+│   ├── 01_data_loading_zhvi.ipynb
+│   └── 02_data_loading_census.ipynb
+│
 ├── visuals/
 └── dashboard/
 ```
@@ -164,9 +168,9 @@ Core dependencies include:
 - [x] Raw datasets integrated
 - [x] Zillow reshaped to panel format
 - [x] Census reshaped to panel format
-- [ ] Dataset merge + validation
-- [ ] Feature engineering
-- [ ] EDA + visualization
+- [ ] Merge Zillow and Census datasets
+- [ ] Annualize ZHVI + feature engineering
+- [ ] Exploratory data analysis (EDA)
 - [ ] Regression modeling
 - [ ] Clustering
 - [ ] Geospatial mapping
