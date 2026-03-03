@@ -134,6 +134,11 @@ Ordinary Least Squares (OLS) regression was used to evaluate the statistical rel
   - Model explanatory power drops substantially (R² ≈ 0.01).
   - Interpretation: Migration does not meaningfully explain cross-county growth differences during market slowdowns.
 
+| Period | Migration Coefficient | p-value | R² |
+|--------|----------------------|---------|-----|
+| Boom (2021–2022) | ~0.0005 | 0.005 | 0.059 |
+| Cooling (2023–2024) | ~-0.0002 | 0.235 | 0.011 |
+
 These results support a regime-dependent relationship between migration and housing price growth.
 
 ---
@@ -174,7 +179,8 @@ florida-housing-migration-analysis/
 │   ├── 02_data_loading_census.ipynb
 │   ├── 03_merging.ipynb
 │   ├── 04_feature_engineering.ipynb
-│   └── 05_exploratory_analysis.ipynb
+│   ├── 05_exploratory_analysis.ipynb
+│   └── 06_regression_analysis.ipynb
 │
 ├── visuals/
 │   ├── domestic_migration_distribution.png
