@@ -1,4 +1,3 @@
-
 # Florida Housing & Migration Analysis (2020–2024)
 
 ## Project Overview
@@ -143,11 +142,15 @@ florida-housing-migration-analysis/
 │   │   └── County_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv
 │   └── processed/
 │       ├── zhvi_fl_long.csv
-│       └── census_fl_county_year.csv
+│       ├── census_fl_county_year.csv
+│       ├── merged_fl_county_year.csv
+│       └── merged_fl_county_year_features.csv
 │
 ├── notebooks/
 │   ├── 01_data_loading_zhvi.ipynb
-│   └── 02_data_loading_census.ipynb
+│   ├── 02_data_loading_census.ipynb
+│   ├── 03_merging.ipynb
+│   └── 04_feature_engineering.ipynb
 │
 ├── visuals/
 └── dashboard/
