@@ -120,9 +120,21 @@ Preliminary exploratory analysis reveals:
 
 These findings suggest that migration may amplify price growth during expansion phases but has limited explanatory power during market slowdowns.
 
-- **Tableau Public Dashboard / Storyboard** (link to be added)
-- Fully documented and reproducible GitHub repository
-- Structured Jupyter notebook workflow
+### Regression Findings
+
+Ordinary Least Squares (OLS) regression was used to evaluate the statistical relationship between net domestic migration and YoY home value growth.
+
+- **Boom Period (2021–2022):**
+  - Domestic migration shows a positive and statistically significant association with YoY growth (p &lt; 0.01).
+  - The model explains approximately 6% of cross-county variation (R² ≈ 0.06).
+  - Interpretation: Migration appears to amplify price growth during expansion phases, though it explains only a modest share of variation.
+
+- **Cooling Period (2023–2024):**
+  - The migration coefficient is economically small and statistically insignificant (p &gt; 0.05).
+  - Model explanatory power drops substantially (R² ≈ 0.01).
+  - Interpretation: Migration does not meaningfully explain cross-county growth differences during market slowdowns.
+
+These results support a regime-dependent relationship between migration and housing price growth.
 
 ---
 
@@ -204,7 +216,7 @@ Core dependencies include:
 - [x] Merge Zillow and Census datasets
 - [x] Annualize ZHVI + feature engineering
 - [x] Exploratory data analysis (EDA)
-- [ ] Regression modeling
+- [x] Regression modeling
 - [ ] Clustering
 - [ ] Geospatial mapping
 - [ ] Tableau dashboard
