@@ -60,7 +60,7 @@ This project evaluates county-level housing market dynamics to identify:
 
 ### 2) U.S. Census Population Estimates (PEP)
 - **Dataset:** CO-EST2024-ALLDATA (States and Counties), April 1, 2020 – July 1, 2024
-- **Raw File:** `data/raw/CO-EST2024-ALLDATA.csv`
+- **Raw File:** `data/raw/co-est2024-alldata.csv`
 - **Granularity:** Annual, county-level
 - **Key Fields:** `SUMLEV`, `STATE`, `COUNTY`, `POPESTIMATE20xx`, `DOMESTICMIG20xx`, `RDOMESTICMIG20xx`
 
@@ -161,9 +161,17 @@ florida-housing-migration-analysis/
 │   ├── 01_data_loading_zhvi.ipynb
 │   ├── 02_data_loading_census.ipynb
 │   ├── 03_merging.ipynb
-│   └── 04_feature_engineering.ipynb
+│   ├── 04_feature_engineering.ipynb
+│   └── 05_exploratory_analysis.ipynb
 │
 ├── visuals/
+│   ├── domestic_migration_distribution.png
+│   ├── migration_vs_growth_all.png
+│   ├── migration_vs_growth_boom.png
+│   ├── migration_vs_growth_cooling.png
+│   ├── migration_vs_growth_colored.png
+│   └── yoy_growth_distribution.png
+│
 └── dashboard/
 ```
 
