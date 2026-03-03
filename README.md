@@ -109,6 +109,17 @@ These features allow regression and clustering analysis.
 
 ## Deliverables
 
+### Exploratory Findings
+
+Preliminary exploratory analysis reveals:
+
+- YoY home value growth was significantly higher during 2021–2022 (boom period) than 2023–2024 (cooling period).
+- Net domestic migration shows a moderate positive correlation (~0.24) with YoY growth during the boom period.
+- The migration–growth relationship weakens substantially during cooling years.
+- Migration rates span similar ranges across periods, but price growth differs materially.
+
+These findings suggest that migration may amplify price growth during expansion phases but has limited explanatory power during market slowdowns.
+
 - **Tableau Public Dashboard / Storyboard** (link to be added)
 - Fully documented and reproducible GitHub repository
 - Structured Jupyter notebook workflow
@@ -184,7 +195,7 @@ Core dependencies include:
 - [x] Census reshaped to panel format
 - [x] Merge Zillow and Census datasets
 - [x] Annualize ZHVI + feature engineering
-- [ ] Exploratory data analysis (EDA)
+- [x] Exploratory data analysis (EDA)
 - [ ] Regression modeling
 - [ ] Clustering
 - [ ] Geospatial mapping
