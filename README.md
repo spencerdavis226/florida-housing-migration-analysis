@@ -13,7 +13,7 @@ This project demonstrates:
 - Regression modeling and interpretation
 - Unsupervised clustering
 - Geospatial visualization
-- Stakeholder-oriented storytelling via Tableau
+- Stakeholder-oriented storytelling via Power BI
 
 ---
 
@@ -141,6 +141,29 @@ Ordinary Least Squares (OLS) regression was used to evaluate the statistical rel
 
 These results support a regime-dependent relationship between migration and housing price growth.
 
+### Clustering Findings
+
+K‑means clustering was used to segment Florida counties into housing market profiles based on four engineered features:
+
+- Boom growth (2020–2022)
+- Cooling change (2024 vs 2022)
+- Growth volatility
+- Net domestic migration rate
+
+The elbow method suggested **three clusters (k = 3)** as a reasonable balance between model simplicity and explanatory power.
+
+Cluster averages show three distinct market segments:
+
+| Cluster | Boom Growth | Migration Rate | Volatility | Cooling Change | Interpretation |
+|--------|-------------|---------------|------------|---------------|---------------|
+| 0 | Lower | Low | Low | Mild | **Stable markets** – counties with relatively low migration and more stable housing growth |
+| 1 | Highest | Very High | Highest | Strongest slowdown | **Migration boom markets** – counties with the largest migration inflows and strongest housing appreciation during the boom period |
+| 2 | Moderate | Moderate | Moderate | Moderate slowdown | **Balanced growth markets** – large metro and suburban counties with steady migration and growth |
+
+Visualization of migration vs. boom growth shows clear separation between clusters, with high‑migration counties concentrated in the highest‑growth segment.
+
+These results support the hypothesis that Florida housing markets can be segmented into distinct profiles based on migration pressure and growth dynamics.
+
 ---
 
 ## Skills Demonstrated
@@ -151,7 +174,7 @@ These results support a regime-dependent relationship between migration and hous
 - Linear regression modeling (statsmodels)
 - Unsupervised learning (k-means clustering)
 - Geospatial visualization (GeoPandas)
-- Dashboard storytelling (Tableau Public)
+- Dashboard storytelling (Power BI)
 
 ---
 
@@ -180,7 +203,8 @@ florida-housing-migration-analysis/
 │   ├── 03_merging.ipynb
 │   ├── 04_feature_engineering.ipynb
 │   ├── 05_exploratory_analysis.ipynb
-│   └── 06_regression_analysis.ipynb
+│   ├── 06_regression_analysis.ipynb
+│   ├── 07_clustering.ipynb
 │
 ├── visuals/
 │   ├── domestic_migration_distribution.png
@@ -188,9 +212,11 @@ florida-housing-migration-analysis/
 │   ├── migration_vs_growth_boom.png
 │   ├── migration_vs_growth_cooling.png
 │   ├── migration_vs_growth_colored.png
-│   └── yoy_growth_distribution.png
+│   ├── yoy_growth_distribution.png
+│   ├── housing_clusters_scatter.png
+│   ├── housing_clusters_stability.png
 │
-└── dashboard/
+└── dashboard/ (Power BI dashboard files)
 ```
 
 ---
@@ -223,9 +249,9 @@ Core dependencies include:
 - [x] Annualize ZHVI + feature engineering
 - [x] Exploratory data analysis (EDA)
 - [x] Regression modeling
-- [ ] Clustering
+- [x] Clustering
 - [ ] Geospatial mapping
-- [ ] Tableau dashboard
+- [ ] Power BI dashboard
 
 ---
 
@@ -238,4 +264,4 @@ This project emphasizes:
 - Structured multi-dataset integration
 - Defensible statistical reasoning
 - Transparent discussion of limitations
-- Stakeholder-oriented storytelling
+- Stakeholder-oriented storytelling through an interactive Power BI dashboard summarizing housing market segments and migration dynamics.
