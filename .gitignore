@@ -20,3 +20,6 @@ venv/
 
 # Local secrets
 .env
+
+# large geospatial files (download separately)
+data/raw/shapefiles/
