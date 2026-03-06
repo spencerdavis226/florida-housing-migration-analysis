@@ -1,6 +1,57 @@
 # Florida Housing & Migration Analysis (2020–2024)
 
+![Python](https://img.shields.io/badge/Python-Analysis-blue)
+![Jupyter](https://img.shields.io/badge/Notebook-Workflow-orange)
+![Tableau](https://img.shields.io/badge/Tableau-Storytelling-blue)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
+
 County-level analysis of housing price growth, domestic migration, market segmentation, and post-boom cooling across Florida.
+
+This project combines **Python analysis**, **county-level geospatial visualization**, and a **Tableau story** to examine how Florida housing markets changed during and after the pandemic-era boom.
+
+---
+
+## Table of Contents
+
+- [Florida Housing \& Migration Analysis (2020–2024)](#florida-housing--migration-analysis-20202024)
+  - [Table of Contents](#table-of-contents)
+  - [Project Snapshot](#project-snapshot)
+  - [Business Context](#business-context)
+  - [Research Questions](#research-questions)
+  - [Hypotheses](#hypotheses)
+  - [Interactive Deliverable](#interactive-deliverable)
+  - [Visual Highlights](#visual-highlights)
+    - [Housing Price Growth During the Pandemic Boom (2020–2022)](#housing-price-growth-during-the-pandemic-boom-20202022)
+    - [Domestic Migration vs. Housing Price Growth](#domestic-migration-vs-housing-price-growth)
+    - [Florida Housing Market Segments](#florida-housing-market-segments)
+  - [Tools Used](#tools-used)
+  - [Data Sources](#data-sources)
+    - [1) Zillow ZHVI](#1-zillow-zhvi)
+    - [2) U.S. Census Population Estimates (PEP)](#2-us-census-population-estimates-pep)
+    - [3) U.S. Census TIGER/Line Shapefiles](#3-us-census-tigerline-shapefiles)
+  - [Methodology](#methodology)
+    - [1. Data Preparation](#1-data-preparation)
+    - [2. Feature Engineering](#2-feature-engineering)
+    - [3. Modeling \& Analysis](#3-modeling--analysis)
+  - [Key Findings](#key-findings)
+    - [1) Pandemic housing growth was uneven across Florida](#1-pandemic-housing-growth-was-uneven-across-florida)
+    - [2) Domestic migration was positively associated with stronger housing growth](#2-domestic-migration-was-positively-associated-with-stronger-housing-growth)
+    - [3) Florida counties cluster into three market segments](#3-florida-counties-cluster-into-three-market-segments)
+    - [4) The strongest boom markets also cooled the most after 2022](#4-the-strongest-boom-markets-also-cooled-the-most-after-2022)
+  - [Regression Summary](#regression-summary)
+  - [Clustering Summary](#clustering-summary)
+  - [Limitations](#limitations)
+  - [Visual Outputs](#visual-outputs)
+    - [Python Visuals](#python-visuals)
+    - [Tableau Story Sections](#tableau-story-sections)
+  - [Skills Demonstrated](#skills-demonstrated)
+  - [Repository Structure](#repository-structure)
+  - [Setup](#setup)
+  - [Reproducing the Analysis](#reproducing-the-analysis)
+  - [Future Improvements](#future-improvements)
+  - [Project Status](#project-status)
+  - [Notes for Recruiters](#notes-for-recruiters)
+  - [Tableau Story Link](#tableau-story-link)
 
 **Interactive Tableau Story:** [Florida Housing Market Dynamics During and After the Pandemic (2020–2024)](https://public.tableau.com/views/FloridaHousingMigrationAnalysis20202024/Story1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 
@@ -10,7 +61,7 @@ County-level analysis of housing price growth, domestic migration, market segmen
 
 This portfolio project analyzes **Florida county-level housing market dynamics** during and after the COVID-era housing boom. It evaluates whether **net domestic migration** was associated with stronger home value growth, identifies **distinct county housing market segments**, and measures how growth **cooled after 2022**.
 
-The housing metric used is Zillow’s **ZHVI (Zillow Home Value Index)**. Migration and population data come from the U.S. Census Bureau’s **Population Estimates Program (CO-EST2024-ALLDATA)**.
+The housing metric used is Zillow’s **ZHVI (Zillow Home Value Index)**. Migration and population data come from the U.S. Census Bureau’s **Population Estimates Program (CO-EST2024-ALLDATA)**. The final communication layer is an interactive **Tableau story** that presents the analytical results in a stakeholder-friendly narrative.
 
 This project demonstrates:
 
@@ -91,6 +142,18 @@ A few key visuals are embedded below for quick scanning. The full narrative and 
 ### Florida Housing Market Segments
 
 ![Florida housing market clusters map](visuals/florida_housing_clusters_map.png)
+
+---
+
+## Tools Used
+
+- **Python** — data cleaning, feature engineering, regression, clustering, and geospatial analysis
+- **pandas / NumPy** — panel data transformation and feature creation
+- **statsmodels** — OLS regression modeling
+- **scikit-learn** — clustering and feature standardization
+- **GeoPandas** — county-level choropleth mapping
+- **Matplotlib / Seaborn** — exploratory and explanatory visualization
+- **Tableau Public** — stakeholder-facing interactive storytelling
 
 ---
 
@@ -212,6 +275,16 @@ The elbow method supported **k = 3** clusters.
 | 2       | Moderate    | Moderate       | Moderate   | Moderate slowdown  | **Balanced growth markets** |
 
 This clustering supports the idea that Florida counties can be grouped into distinct housing market profiles rather than treated as one uniform statewide market.
+
+---
+
+## Limitations
+
+- This analysis evaluates **county-level relationships**, not individual buyer behavior.
+- It does **not** identify where movers came from (for example, specific origin states such as New York or California).
+- It does **not** directly measure investor activity, cash purchases, or parcel-level transaction behavior.
+- Regression results are **associational**, not causal.
+- County-level aggregation may mask important within-county variation.
 
 ---
 
@@ -340,6 +413,16 @@ Suggested notebook order:
 
 ---
 
+## Future Improvements
+
+- Add a summary notebook or script that reproduces the full workflow end-to-end
+- Add a data dictionary for processed modeling features
+- Add notebook-level headers with inputs, outputs, and purpose statements
+- Add a small `results/` section or appendix with exported model summaries
+- Expand the project with transaction-level or affordability data for deeper causal interpretation
+
+---
+
 ## Project Status
 
 - [x] Repository scaffolded
@@ -358,7 +441,7 @@ Suggested notebook order:
 
 ## Notes for Recruiters
 
-This project emphasizes:
+This project is designed to show both **analytical depth** and **communication clarity**. It emphasizes:
 
 - Clear problem framing
 - Reproducible Python workflows
@@ -372,7 +455,8 @@ If you’re reviewing this project quickly, the best order is:
 
 1. Read the **Project Snapshot** and **Key Findings** sections
 2. Open the **Interactive Tableau Story**
-3. Review the supporting Python notebooks and visuals if you want to inspect the analytical workflow
+3. Review the supporting Python notebooks and visuals to inspect the analytical workflow
+4. Skim the regression and clustering summaries in this README for the main results
 
 ---
 
