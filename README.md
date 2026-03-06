@@ -455,8 +455,7 @@ Suggested notebook order:
 
 ## License
 
-This project may be shared under the MIT License. Add a \
-`LICENSE` file at the repository root if you want recruiters, collaborators, and other GitHub users to clearly see the reuse terms.
+This project is licensed under the MIT License. See the `LICENSE` file for details.
 
 ---
 
