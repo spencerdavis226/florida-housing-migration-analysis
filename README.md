@@ -177,9 +177,11 @@ A few key visuals are embedded below for quick scanning. The full narrative and 
 
 ### 3) U.S. Census TIGER/Line Shapefiles
 
-- **Dataset:** County boundary shapefiles
+- **Dataset:** Census TIGER/Line county boundary shapefiles
 - **Local folder:** `data/raw/shapefiles/`
-- **Use in project:** County-level choropleth mapping in Python
+- **Primary file used:** `tl_2023_us_county.shp`
+- **Related files used locally:** `.dbf`, `.shx`, `.prj`, and `.cpg` shapefile components
+- **Use in project:** County-level choropleth mapping in Python by joining county geometries to the processed analytical dataset with county FIPS codes
 
 ---
 
@@ -345,7 +347,14 @@ florida-housing-migration-analysis/
 │   ├── raw/
 │   │   ├── co-est2024-alldata.csv
 │   │   ├── County_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv
-│   │   └── shapefiles/ (Census TIGER/Line county boundaries)
+│   │   └── shapefiles/
+│   │       ├── tl_2023_us_county.cpg
+│   │       ├── tl_2023_us_county.dbf
+│   │       ├── tl_2023_us_county.prj
+│   │       ├── tl_2023_us_county.shp
+│   │       ├── tl_2023_us_county.shp.iso.xml
+│   │       ├── tl_2023_us_county.shx
+│   │       └── ... local shapefile components
 │   └── processed/
 │       ├── zhvi_fl_long.csv
 │       ├── census_fl_county_year.csv
@@ -384,9 +393,7 @@ florida-housing-migration-analysis/
 The processed modeling dataset is documented in \
 `DATA_DICTIONARY.md`.
 
-This file explains the final county-year analytical dataset, variable definitions, engineered features, clustering labels, and source provenance for the merged Florida housing and migration workflow.
-
----
+This file documents the final county-year analytical dataset, variable definitions, engineered features, cluster labels, data sources, and geospatial workflow dependencies used throughout the project.
 
 ---
 
@@ -424,6 +431,8 @@ Suggested notebook order:
 6. `06_regression_analysis.ipynb`
 7. `07_clustering.ipynb`
 8. `08_geospatial_analysis.ipynb`
+
+To reproduce the choropleth maps in `08_geospatial_analysis.ipynb`, the Census TIGER/Line county shapefiles must also be available locally in `data/raw/shapefiles/`. These files support the geometry join used for the Python geospatial maps even if they are not committed to GitHub in every version of the repository.
 
 ---
 

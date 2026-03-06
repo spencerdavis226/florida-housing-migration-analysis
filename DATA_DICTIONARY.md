@@ -13,6 +13,7 @@ Each row represents a **Florida county–year observation**. The dataset was cre
 3. Merging both datasets using county **FIPS code and year**
 4. Engineering housing growth features
 5. Assigning cluster labels from K-means clustering
+6. Joining the final county-level dataset to Census TIGER/Line county boundary shapefiles for geospatial mapping
 
 The dataset contains **335 observations (67 counties × 5 years)** covering **2020–2024**.
 
@@ -226,12 +227,42 @@ for all U.S. counties.
 
 ---
 
+### U.S. Census TIGER/Line County Shapefiles
+
+Dataset used:
+
+```
+tl_2023_us_county.shp
+```
+
+Related shapefile components used locally include:
+
+- tl_2023_us_county.shp
+- tl_2023_us_county.dbf
+- tl_2023_us_county.shx
+- tl_2023_us_county.prj
+- tl_2023_us_county.cpg
+
+Source:
+
+https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html
+
+Use in project:
+
+These files were used in the geospatial analysis notebook to create Florida county choropleth maps by joining county geometries to the processed analytical dataset using county FIPS codes.
+
+Repository note:
+
+The shapefiles are used locally in the workflow but may not be included in the GitHub repository because of file size and multi-file shapefile packaging.
+---
+
 # 9. Notes
 
 - All housing values are in **nominal dollars**.
 - Migration variables represent **domestic migration only**, not international migration.
 - County-level aggregation may hide variation within counties.
 - Cluster labels are **interpretive labels assigned after K‑means clustering**.
+- Geospatial map outputs depend on local Census TIGER/Line shapefiles even if those files are not stored in the GitHub repository.
 
 ---
 
