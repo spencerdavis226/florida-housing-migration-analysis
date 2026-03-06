@@ -46,10 +46,12 @@ This project combines **Python analysis**, **county-level geospatial visualizati
     - [Tableau Story Sections](#tableau-story-sections)
   - [Skills Demonstrated](#skills-demonstrated)
   - [Repository Structure](#repository-structure)
+  - [Data Dictionary](#data-dictionary)
   - [Setup](#setup)
   - [Reproducing the Analysis](#reproducing-the-analysis)
   - [Future Improvements](#future-improvements)
   - [Project Status](#project-status)
+  - [License](#license)
   - [Notes for Recruiters](#notes-for-recruiters)
   - [Tableau Story Link](#tableau-story-link)
 
@@ -61,7 +63,7 @@ This project combines **Python analysis**, **county-level geospatial visualizati
 
 This portfolio project analyzes **Florida county-level housing market dynamics** during and after the COVID-era housing boom. It evaluates whether **net domestic migration** was associated with stronger home value growth, identifies **distinct county housing market segments**, and measures how growth **cooled after 2022**.
 
-The housing metric used is Zillow’s **ZHVI (Zillow Home Value Index)**. Migration and population data come from the U.S. Census Bureau’s **Population Estimates Program (CO-EST2024-ALLDATA)**. The final communication layer is an interactive **Tableau story** that presents the analytical results in a stakeholder-friendly narrative.
+The housing metric used is Zillow’s **ZHVI (Zillow Home Value Index)**, annualized from monthly county-level observations. Migration and population data come from the U.S. Census Bureau’s **Population Estimates Program (CO-EST2024-ALLDATA)**. These sources are merged into a **county-year panel dataset** covering Florida’s 67 counties from **2020–2024**, and the final communication layer is an interactive **Tableau story** that presents the analytical results in a stakeholder-friendly narrative.
 
 This project demonstrates:
 
@@ -200,7 +202,7 @@ Engineered county-level features include:
 - **Boom Growth (2020–2022)** — cumulative home price growth from 2020 to 2022
 - **Cooling Delta (2024 vs 2022)** — change in YoY growth rate between 2022 and 2024
 - **YoY Volatility** — standard deviation of yearly home price growth
-- **Average Domestic Migration Rate** — mean net domestic migration rate per 1,000 residents
+- **Net Domestic Migration Rate** — annual net domestic migration rate per 1,000 residents used in regression and clustering
 
 ### 3. Modeling & Analysis
 
@@ -335,6 +337,7 @@ The Tableau story presents the final narrative in five parts:
 ```text
 florida-housing-migration-analysis/
 ├── README.md
+├── DATA_DICTIONARY.md
 ├── requirements.txt
 ├── .gitignore
 │
@@ -373,6 +376,17 @@ florida-housing-migration-analysis/
     ├── migration_vs_growth_cooling.png
     └── yoy_growth_distribution.png
 ```
+
+---
+
+## Data Dictionary
+
+The processed modeling dataset is documented in \
+`DATA_DICTIONARY.md`.
+
+This file explains the final county-year analytical dataset, variable definitions, engineered features, clustering labels, and source provenance for the merged Florida housing and migration workflow.
+
+---
 
 ---
 
@@ -416,7 +430,7 @@ Suggested notebook order:
 ## Future Improvements
 
 - Add a summary notebook or script that reproduces the full workflow end-to-end
-- Add a data dictionary for processed modeling features
+- Add a concise results appendix with exported regression tables and cluster summaries
 - Add notebook-level headers with inputs, outputs, and purpose statements
 - Add a small `results/` section or appendix with exported model summaries
 - Expand the project with transaction-level or affordability data for deeper causal interpretation
@@ -439,6 +453,13 @@ Suggested notebook order:
 
 ---
 
+## License
+
+This project may be shared under the MIT License. Add a \
+`LICENSE` file at the repository root if you want recruiters, collaborators, and other GitHub users to clearly see the reuse terms.
+
+---
+
 ## Notes for Recruiters
 
 This project is designed to show both **analytical depth** and **communication clarity**. It emphasizes:
@@ -453,9 +474,9 @@ This project is designed to show both **analytical depth** and **communication c
 
 If you’re reviewing this project quickly, the best order is:
 
-1. Read the **Project Snapshot** and **Key Findings** sections
+1. Read the **Project Snapshot**, **Key Findings**, and **Data Dictionary** sections
 2. Open the **Interactive Tableau Story**
-3. Review the supporting Python notebooks and visuals to inspect the analytical workflow
+3. Review the Python notebooks to inspect the analytical workflow
 4. Skim the regression and clustering summaries in this README for the main results
 
 ---
