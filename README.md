@@ -1,8 +1,14 @@
 # Florida Housing & Migration Analysis (2020–2024)
 
-## Project Overview
+County-level analysis of housing price growth, domestic migration, market segmentation, and post-boom cooling across Florida.
 
-This portfolio project analyzes **Florida county-level housing market dynamics** and evaluates whether **net domestic migration** is associated with home value growth.
+**Interactive Tableau Story:** [Florida Housing Market Dynamics During and After the Pandemic (2020–2024)](https://public.tableau.com/views/FloridaHousingMigrationAnalysis20202024/Story1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
+
+---
+
+## Project Snapshot
+
+This portfolio project analyzes **Florida county-level housing market dynamics** during and after the COVID-era housing boom. It evaluates whether **net domestic migration** was associated with stronger home value growth, identifies **distinct county housing market segments**, and measures how growth **cooled after 2022**.
 
 The housing metric used is Zillow’s **ZHVI (Zillow Home Value Index)**. Migration and population data come from the U.S. Census Bureau’s **Population Estimates Program (CO-EST2024-ALLDATA)**.
 
@@ -15,7 +21,7 @@ This project demonstrates:
 - Regression modeling and interpretation
 - Unsupervised clustering
 - Geospatial visualization
-- Stakeholder-oriented storytelling via Power BI
+- Stakeholder-oriented storytelling via an interactive Tableau story
 
 ---
 
@@ -28,29 +34,45 @@ This project evaluates county-level housing market dynamics to identify:
 1. Geographic concentration of appreciation
 2. Post-2022 growth deceleration patterns
 3. Statistical association between domestic migration and home value growth
+4. Distinct housing market segments across counties
 
 ---
 
 ## Research Questions
 
-1. **Growth & Cooling:**
+1. **Growth & Cooling**
    Which Florida counties experienced the strongest ZHVI growth from 2020–2022, and did growth slow after 2022?
 
-2. **Migration Relationship:**
-   Is net domestic migration positively associated with county-level YoY home value growth?
+2. **Migration Relationship**
+   Is net domestic migration positively associated with county-level home value growth during the housing boom?
 
-3. **Segmentation:**
+3. **Segmentation**
    Can Florida counties be grouped into distinct housing market profiles based on growth, volatility, and migration?
 
 ---
 
 ## Hypotheses
 
-- **H1:** Net domestic migration is positively associated with county-level YoY home value growth during 2020–2022.
-- **H2:** YoY growth in home values slowed meaningfully after 2022 across most Florida counties.
-- **H3:** Florida counties can be clustered into distinct housing market segments (e.g., high-growth/high-migration vs. stable/low-migration).
+- **H1:** Net domestic migration is positively associated with county-level home value growth during 2020–2022.
+- **H2:** Home price growth slowed meaningfully after 2022 across most Florida counties.
+- **H3:** Florida counties can be clustered into distinct housing market segments.
 
-> This project does not directly test buyer origin (e.g., CA/NY) or cash purchase activity, as those require transaction-level datasets not included in the selected sources.
+> This project does **not** directly test buyer origin, investor activity, or cash-purchase behavior, since those require transaction-level or parcel-level data outside the scope of the selected sources.
+
+---
+
+## Interactive Deliverable
+
+The final storytelling layer for this project is a **Tableau Story** that walks through the analysis in a clear narrative sequence:
+
+1. Pandemic housing boom context
+2. Where housing prices grew the most
+3. Migration vs. housing growth relationship
+4. County housing market segmentation
+5. Post-boom cooling across counties
+
+**View the full interactive story here:**
+[Florida Housing Market Dynamics During and After the Pandemic (2020–2024)](https://public.tableau.com/views/FloridaHousingMigrationAnalysis20202024/Story1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 
 ---
 
@@ -59,15 +81,22 @@ This project evaluates county-level housing market dynamics to identify:
 ### 1) Zillow ZHVI
 
 - **Dataset:** County ZHVI (mid-tier, all homes, smoothed, seasonally adjusted)
-- **Raw File:** `data/raw/County_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv`
+- **Raw file:** `data/raw/County_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv`
 - **Granularity:** Monthly, county-level
+- **Use in project:** Annualized county home value analysis and growth feature engineering
 
 ### 2) U.S. Census Population Estimates (PEP)
 
 - **Dataset:** CO-EST2024-ALLDATA (States and Counties), April 1, 2020 – July 1, 2024
-- **Raw File:** `data/raw/co-est2024-alldata.csv`
+- **Raw file:** `data/raw/co-est2024-alldata.csv`
 - **Granularity:** Annual, county-level
-- **Key Fields:** `SUMLEV`, `STATE`, `COUNTY`, `POPESTIMATE20xx`, `DOMESTICMIG20xx`, `RDOMESTICMIG20xx`
+- **Key fields used:** `SUMLEV`, `STATE`, `COUNTY`, `POPESTIMATE20xx`, `DOMESTICMIG20xx`, `RDOMESTICMIG20xx`
+
+### 3) U.S. Census TIGER/Line Shapefiles
+
+- **Dataset:** County boundary shapefiles
+- **Local folder:** `data/raw/shapefiles/`
+- **Use in project:** County-level choropleth mapping in Python
 
 ---
 
@@ -75,113 +104,125 @@ This project evaluates county-level housing market dynamics to identify:
 
 ### 1. Data Preparation
 
-- Reshape Zillow ZHVI from wide (monthly columns) to long format (county, date, zhvi)
-- Filter to Florida counties
-- Convert monthly ZHVI to annual values (annual averages)
-- Engineer features:
-  - YoY growth
-  - Cumulative growth (2020–2022)
-  - Post-2022 growth change
-  - Volatility (standard deviation of YoY growth)
+- Reshape Zillow ZHVI from wide format to long format (`county`, `date`, `zhvi`)
+- Filter Zillow data to Florida counties
+- Convert monthly ZHVI to annual county values
+- Reshape Census migration and population data from wide to long
+- Filter Census data to Florida county-level records (`SUMLEV == 050`)
+- Construct standardized 5-digit FIPS codes for merge consistency
 
-### 2. Census Processing
+### 2. Feature Engineering
 
-- Filter Census to `SUMLEV == 050` (county-level) and Florida
-- Construct standardized 5-digit FIPS codes
-- Reshape annual migration and population columns from wide to long
-- Build clean county-year panel dataset
+Engineered county-level features include:
 
-### 3. Merge
+- **YoY Growth** — annual percent change in ZHVI
+- **Boom Growth (2020–2022)** — cumulative home price growth from 2020 to 2022
+- **Cooling Delta (2024 vs 2022)** — change in YoY growth rate between 2022 and 2024
+- **YoY Volatility** — standard deviation of yearly home price growth
+- **Average Domestic Migration Rate** — mean net domestic migration rate per 1,000 residents
 
-- Merge Zillow and Census datasets on county FIPS + year
-- Validate match rate and inspect missing joins
+### 3. Modeling & Analysis
 
-### 4. Analysis
-
-- Exploratory data analysis (distributions, correlations, rankings)
-- Linear regression (YoY growth ~ domestic migration [+ optional controls])
-- K-means clustering (with elbow method validation)
-- Geospatial choropleths for growth, migration, and clusters
-
-### 5. Feature Engineering
-
-Engineered modeling-ready features:
-
-- **YoY Growth** — Annual percent change in ZHVI
-- **Boom Intensity (2020–2022)** — Cumulative growth during surge period
-- **Cooling Intensity (2024 vs 2022)** — Growth deceleration metric
-- **Volatility** — Standard deviation of YoY growth (2021–2024)
-
-These features allow regression and clustering analysis.
+- Exploratory data analysis (distributions, rankings, boom vs. cooling comparisons)
+- OLS regression of housing growth on migration during boom and cooling periods
+- K-means clustering with elbow-method validation
+- County-level geospatial mapping using GeoPandas
+- Narrative Tableau story for stakeholder-facing communication
 
 ---
 
-## Deliverables
+## Key Findings
 
-### Exploratory Findings
+### 1) Pandemic housing growth was uneven across Florida
 
-Preliminary exploratory analysis reveals:
+County-level housing appreciation varied substantially during 2020–2022. Coastal and tourism-oriented counties experienced the strongest cumulative growth, with some counties exceeding **60%** during the boom period.
 
-- YoY home value growth was significantly higher during 2021–2022 (boom period) than 2023–2024 (cooling period).
-- Net domestic migration shows a moderate positive correlation (~0.24) with YoY growth during the boom period.
-- The migration–growth relationship weakens substantially during cooling years.
-- Migration rates span similar ranges across periods, but price growth differs materially.
+**Highest observed boom growth:** Walton County (~61.8%)
 
-These findings suggest that migration may amplify price growth during expansion phases but has limited explanatory power during market slowdowns.
+### 2) Domestic migration was positively associated with stronger housing growth
 
-### Regression Findings
+Counties experiencing stronger domestic migration generally show higher housing price growth during the pandemic period.
 
-Ordinary Least Squares (OLS) regression was used to evaluate the statistical relationship between net domestic migration and YoY home value growth.
+OLS regression results suggest that migration had a **positive and statistically significant** relationship with county-level home value growth during the boom, but that relationship weakened materially during the cooling period.
 
-- **Boom Period (2021–2022):**
-  - Domestic migration shows a positive and statistically significant association with YoY growth (p &lt; 0.01).
-  - The model explains approximately 6% of cross-county variation (R² ≈ 0.06).
-  - Interpretation: Migration appears to amplify price growth during expansion phases, though it explains only a modest share of variation.
+### 3) Florida counties cluster into three market segments
 
-- **Cooling Period (2023–2024):**
-  - The migration coefficient is economically small and statistically insignificant (p &gt; 0.05).
-  - Model explanatory power drops substantially (R² ≈ 0.01).
-  - Interpretation: Migration does not meaningfully explain cross-county growth differences during market slowdowns.
+K-means clustering identified three distinct housing market types:
 
-| Period              | Migration Coefficient | p-value | R²    |
-| ------------------- | --------------------- | ------- | ----- |
-| Boom (2021–2022)    | ~0.0005               | 0.005   | 0.059 |
-| Cooling (2023–2024) | ~-0.0002              | 0.235   | 0.011 |
+- **Stable markets** — lower migration, lower growth, lower volatility
+- **Balanced growth markets** — moderate migration and moderate growth
+- **Migration boom markets** — highest migration, strongest boom growth, strongest subsequent slowdown
 
-These results support a regime-dependent relationship between migration and housing price growth.
+These clusters suggest Florida’s housing boom was not a single statewide phenomenon, but a mix of distinct local market regimes.
 
-### Clustering Findings
+### 4) The strongest boom markets also cooled the most after 2022
 
-K‑means clustering was used to segment Florida counties into housing market profiles based on four engineered features:
+Growth slowed across nearly all counties after 2022, but the slowdown was strongest in several markets that had experienced the largest pandemic-era surges.
+
+This supports a broader interpretation that the most overheated counties experienced the greatest post-boom normalization.
+
+---
+
+## Regression Summary
+
+Ordinary Least Squares (OLS) regression was used to evaluate the statistical relationship between net domestic migration and home value growth.
+
+| Period | Migration Coefficient | p-value | R² | Interpretation |
+| --- | --- | --- | --- | --- |
+| Boom (2021–2022) | ~0.0005 | 0.005 | 0.059 | Migration is positively associated with stronger home value growth during the boom |
+| Cooling (2023–2024) | ~-0.0002 | 0.235 | 0.011 | Migration does not meaningfully explain county growth differences during the cooling period |
+
+These results suggest a **regime-dependent relationship** between migration and housing market performance.
+
+---
+
+## Clustering Summary
+
+K-means clustering used four engineered features:
 
 - Boom growth (2020–2022)
-- Cooling change (2024 vs 2022)
+- Cooling delta (2024 vs 2022)
 - Growth volatility
 - Net domestic migration rate
 
-The elbow method suggested **three clusters (k = 3)** as a reasonable balance between model simplicity and explanatory power.
+The elbow method supported **k = 3** clusters.
 
-Cluster averages show three distinct market segments:
+| Cluster | Boom Growth | Migration Rate | Volatility | Cooling Pattern | Interpretation |
+| --- | --- | --- | --- | --- | --- |
+| 0 | Lower | Low | Low | Mild slowdown | **Stable markets** |
+| 1 | Highest | Very High | Highest | Strongest slowdown | **Migration boom markets** |
+| 2 | Moderate | Moderate | Moderate | Moderate slowdown | **Balanced growth markets** |
 
-| Cluster | Boom Growth | Migration Rate | Volatility | Cooling Change     | Interpretation                                                                                                                     |
-| ------- | ----------- | -------------- | ---------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| 0       | Lower       | Low            | Low        | Mild               | **Stable markets** – counties with relatively low migration and more stable housing growth                                         |
-| 1       | Highest     | Very High      | Highest    | Strongest slowdown | **Migration boom markets** – counties with the largest migration inflows and strongest housing appreciation during the boom period |
-| 2       | Moderate    | Moderate       | Moderate   | Moderate slowdown  | **Balanced growth markets** – large metro and suburban counties with steady migration and growth                                   |
+This clustering supports the idea that Florida counties can be grouped into distinct housing market profiles rather than treated as one uniform statewide market.
 
-Visualization of migration vs. boom growth shows clear separation between clusters, with high‑migration counties concentrated in the highest‑growth segment.
+---
 
-These results support the hypothesis that Florida housing markets can be segmented into distinct profiles based on migration pressure and growth dynamics.
+## Visual Outputs
 
-### Geospatial Findings
+### Python Visuals
 
-County boundary shapefiles from the U.S. Census TIGER/Line program were joined to the processed county dataset using 5‑digit FIPS codes. Three choropleth maps were produced:
+The repository includes supporting visuals generated in Python:
 
-- **Housing market clusters** (categorical)
-- **Average net domestic migration rate (2021–2024)** (continuous)
-- **Boom growth (2020–2022)** (continuous)
+- `visuals/florida_boom_growth_map.png`
+- `visuals/florida_housing_clusters_map.png`
+- `visuals/florida_migration_rate_map.png`
+- `visuals/housing_clusters_scatter.png`
+- `visuals/housing_clusters_stability.png`
+- `visuals/migration_vs_growth_all.png`
+- `visuals/migration_vs_growth_boom.png`
+- `visuals/migration_vs_growth_cooling.png`
+- `visuals/yoy_growth_distribution.png`
+- `visuals/domestic_migration_distribution.png`
 
-The maps show that high‑migration counties are geographically concentrated and tend to overlap with the migration‑driven boom segment identified in clustering, while more stable markets are more common inland.
+### Tableau Story Sections
+
+The Tableau story presents the final narrative in five parts:
+
+1. **Pandemic Housing Boom in Florida**
+2. **Housing Price Growth During the Pandemic Boom (2020–2022)**
+3. **Domestic Migration and Housing Price Growth**
+4. **Florida Housing Markets Cluster into Three Segments**
+5. **Housing Markets Slowed After the Pandemic Boom**
 
 ---
 
@@ -190,16 +231,17 @@ The maps show that high‑migration counties are geographically concentrated and
 - Data reshaping (wide-to-long panel transformations)
 - Multi-source integration via FIPS join keys
 - Time-series feature engineering
+- Exploratory data analysis
 - Linear regression modeling (statsmodels)
 - Unsupervised learning (k-means clustering)
 - Geospatial visualization (GeoPandas)
-- Dashboard storytelling (Power BI)
+- Data storytelling in Tableau
 
 ---
 
 ## Repository Structure
 
-```
+```text
 florida-housing-migration-analysis/
 ├── README.md
 ├── REFERENCE.md
@@ -216,7 +258,7 @@ florida-housing-migration-analysis/
 │       ├── census_fl_county_year.csv
 │       ├── merged_fl_county_year.csv
 │       ├── merged_fl_county_year_features.csv
-│       ├── merged_fl_county_year_clusters.csv
+│       └── merged_fl_county_year_clusters.csv
 │
 ├── notebooks/
 │   ├── 01_data_loading_zhvi.ipynb
@@ -226,27 +268,29 @@ florida-housing-migration-analysis/
 │   ├── 05_exploratory_analysis.ipynb
 │   ├── 06_regression_analysis.ipynb
 │   ├── 07_clustering.ipynb
-│   ├── 08_geospatial_analysis.ipynb
+│   └── 08_geospatial_analysis.ipynb
 │
 ├── visuals/
 │   ├── domestic_migration_distribution.png
-│   ├── migration_vs_growth_all.png
-│   ├── migration_vs_growth_boom.png
-│   ├── migration_vs_growth_cooling.png
-│   ├── migration_vs_growth_colored.png
-│   ├── yoy_growth_distribution.png
-│   ├── housing_clusters_scatter.png
-│   ├── housing_clusters_stability.png
+│   ├── florida_boom_growth_map.png
 │   ├── florida_housing_clusters_map.png
 │   ├── florida_migration_rate_map.png
-│   ├── florida_boom_growth_map.png
+│   ├── housing_clusters_scatter.png
+│   ├── housing_clusters_stability.png
+│   ├── migration_vs_growth_all.png
+│   ├── migration_vs_growth_boom.png
+│   ├── migration_vs_growth_colored.png
+│   ├── migration_vs_growth_cooling.png
+│   └── yoy_growth_distribution.png
 │
-└── dashboard/ (Power BI dashboard files)
+└── dashboard/ (Tableau workbook / storyboard files)
 ```
 
 ---
 
 ## Setup
+
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -262,6 +306,22 @@ Core dependencies include:
 - statsmodels
 - geopandas
 - shapely
+- pyogrio
+
+---
+
+## Reproducing the Analysis
+
+Suggested notebook order:
+
+1. `01_data_loading_zhvi.ipynb`
+2. `02_data_loading_census.ipynb`
+3. `03_merging.ipynb`
+4. `04_feature_engineering.ipynb`
+5. `05_exploratory_analysis.ipynb`
+6. `06_regression_analysis.ipynb`
+7. `07_clustering.ipynb`
+8. `08_geospatial_analysis.ipynb`
 
 ---
 
@@ -277,7 +337,7 @@ Core dependencies include:
 - [x] Regression modeling
 - [x] Clustering
 - [x] Geospatial mapping
-- [ ] Power BI dashboard
+- [x] Tableau story published
 
 ---
 
@@ -290,4 +350,17 @@ This project emphasizes:
 - Structured multi-dataset integration
 - Defensible statistical reasoning
 - Transparent discussion of limitations
-- Stakeholder-oriented storytelling through an interactive Power BI dashboard summarizing housing market segments and migration dynamics.
+- County-level geospatial and cluster analysis
+- Stakeholder-oriented storytelling through an interactive Tableau story
+
+If you’re reviewing this project quickly, the best order is:
+
+1. Read the **Project Snapshot** and **Key Findings** sections
+2. Open the **Interactive Tableau Story**
+3. Review the supporting Python notebooks and visuals if you want to inspect the analytical workflow
+
+---
+
+## Tableau Story Link
+
+[Florida Housing Market Dynamics During and After the Pandemic (2020–2024)](https://public.tableau.com/views/FloridaHousingMigrationAnalysis20202024/Story1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
