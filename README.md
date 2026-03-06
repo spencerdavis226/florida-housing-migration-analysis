@@ -76,6 +76,24 @@ The final storytelling layer for this project is a **Tableau Story** that walks 
 
 ---
 
+## Visual Highlights
+
+A few key visuals are embedded below for quick scanning. The full narrative and interactive version live in the Tableau Story linked above.
+
+### Housing Price Growth During the Pandemic Boom (2020–2022)
+
+![Florida boom growth map](visuals/florida_boom_growth_map.png)
+
+### Domestic Migration vs. Housing Price Growth
+
+![Migration vs housing boom growth scatter](visuals/housing_clusters_scatter.png)
+
+### Florida Housing Market Segments
+
+![Florida housing market clusters map](visuals/florida_housing_clusters_map.png)
+
+---
+
 ## Data Sources
 
 ### 1) Zillow ZHVI
@@ -167,10 +185,10 @@ This supports a broader interpretation that the most overheated counties experie
 
 Ordinary Least Squares (OLS) regression was used to evaluate the statistical relationship between net domestic migration and home value growth.
 
-| Period | Migration Coefficient | p-value | R² | Interpretation |
-| --- | --- | --- | --- | --- |
-| Boom (2021–2022) | ~0.0005 | 0.005 | 0.059 | Migration is positively associated with stronger home value growth during the boom |
-| Cooling (2023–2024) | ~-0.0002 | 0.235 | 0.011 | Migration does not meaningfully explain county growth differences during the cooling period |
+| Period              | Migration Coefficient | p-value | R²    | Interpretation                                                                              |
+| ------------------- | --------------------- | ------- | ----- | ------------------------------------------------------------------------------------------- |
+| Boom (2021–2022)    | ~0.0005               | 0.005   | 0.059 | Migration is positively associated with stronger home value growth during the boom          |
+| Cooling (2023–2024) | ~-0.0002              | 0.235   | 0.011 | Migration does not meaningfully explain county growth differences during the cooling period |
 
 These results suggest a **regime-dependent relationship** between migration and housing market performance.
 
@@ -187,11 +205,11 @@ K-means clustering used four engineered features:
 
 The elbow method supported **k = 3** clusters.
 
-| Cluster | Boom Growth | Migration Rate | Volatility | Cooling Pattern | Interpretation |
-| --- | --- | --- | --- | --- | --- |
-| 0 | Lower | Low | Low | Mild slowdown | **Stable markets** |
-| 1 | Highest | Very High | Highest | Strongest slowdown | **Migration boom markets** |
-| 2 | Moderate | Moderate | Moderate | Moderate slowdown | **Balanced growth markets** |
+| Cluster | Boom Growth | Migration Rate | Volatility | Cooling Pattern    | Interpretation              |
+| ------- | ----------- | -------------- | ---------- | ------------------ | --------------------------- |
+| 0       | Lower       | Low            | Low        | Mild slowdown      | **Stable markets**          |
+| 1       | Highest     | Very High      | Highest    | Strongest slowdown | **Migration boom markets**  |
+| 2       | Moderate    | Moderate       | Moderate   | Moderate slowdown  | **Balanced growth markets** |
 
 This clustering supports the idea that Florida counties can be grouped into distinct housing market profiles rather than treated as one uniform statewide market.
 
@@ -201,7 +219,7 @@ This clustering supports the idea that Florida counties can be grouped into dist
 
 ### Python Visuals
 
-The repository includes supporting visuals generated in Python:
+Several of these visuals are embedded above in the **Visual Highlights** section for quick review.
 
 - `visuals/florida_boom_growth_map.png`
 - `visuals/florida_housing_clusters_map.png`
@@ -244,7 +262,6 @@ The Tableau story presents the final narrative in five parts:
 ```text
 florida-housing-migration-analysis/
 ├── README.md
-├── REFERENCE.md
 ├── requirements.txt
 ├── .gitignore
 │
@@ -270,20 +287,18 @@ florida-housing-migration-analysis/
 │   ├── 07_clustering.ipynb
 │   └── 08_geospatial_analysis.ipynb
 │
-├── visuals/
-│   ├── domestic_migration_distribution.png
-│   ├── florida_boom_growth_map.png
-│   ├── florida_housing_clusters_map.png
-│   ├── florida_migration_rate_map.png
-│   ├── housing_clusters_scatter.png
-│   ├── housing_clusters_stability.png
-│   ├── migration_vs_growth_all.png
-│   ├── migration_vs_growth_boom.png
-│   ├── migration_vs_growth_colored.png
-│   ├── migration_vs_growth_cooling.png
-│   └── yoy_growth_distribution.png
-│
-└── dashboard/ (Tableau workbook / storyboard files)
+└── visuals/
+    ├── domestic_migration_distribution.png
+    ├── florida_boom_growth_map.png
+    ├── florida_housing_clusters_map.png
+    ├── florida_migration_rate_map.png
+    ├── housing_clusters_scatter.png
+    ├── housing_clusters_stability.png
+    ├── migration_vs_growth_all.png
+    ├── migration_vs_growth_boom.png
+    ├── migration_vs_growth_colored.png
+    ├── migration_vs_growth_cooling.png
+    └── yoy_growth_distribution.png
 ```
 
 ---
