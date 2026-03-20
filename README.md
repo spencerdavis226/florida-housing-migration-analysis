@@ -4,6 +4,16 @@ County-level analysis of housing price growth, domestic migration, market segmen
 
 [View the Tableau Story](https://public.tableau.com/views/FloridaHousingMigrationAnalysis20202024/Story1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 
+## Visual Highlights
+
+### Domestic Migration vs. Home Value Growth
+
+![Domestic Migration vs YoY Growth](visuals/migration_vs_growth_colored.png)
+
+### Florida Housing Market Clusters
+
+![Florida Housing Market Clusters](visuals/florida_housing_clusters_map.png)
+
 ---
 
 ## Executive Summary
@@ -131,7 +141,7 @@ Florida’s housing boom was not evenly distributed. Some counties experienced d
 
 ### 2. Domestic migration was positively associated with stronger boom-period growth
 
-Counties with higher domestic migration generally showed stronger home value growth during the pandemic-era boom. The relationship was statistically meaningful during the boom period, but weakened during the cooling phase.
+Counties with higher domestic migration generally showed stronger home value growth during the pandemic-era boom. The scatterplot below illustrates a clearer positive relationship during the boom period than during the later cooling phase, where growth became more muted and less strongly tied to migration.
 
 ### 3. Florida counties grouped into three market segments
 
@@ -140,6 +150,8 @@ Clustering analysis identified three broad county profiles:
 - **Stable markets** — lower migration, lower growth, lower volatility
 - **Balanced growth markets** — moderate migration and moderate appreciation
 - **Migration boom markets** — strongest growth, highest migration, and strongest post-2022 cooling
+
+The cluster map highlights that Florida's housing boom was not one uniform statewide pattern. Instead, counties fell into distinct market types with different combinations of migration pressure, appreciation, and cooling behavior.
 
 ### 4. The hottest boom markets cooled the most after 2022
 
@@ -181,6 +193,7 @@ It also shows range: statistical analysis, unsupervised learning, geospatial ana
 - **Python notebooks** for cleaning, feature engineering, regression, clustering, and mapping
 - **Processed analytical datasets**
 - **Static visuals** for quick review
+- **Map-based and scatterplot visuals** included in the `visuals/` folder for recruiter-friendly review
 - **Interactive Tableau story** for final communication
 
 ---
@@ -209,14 +222,13 @@ florida-housing-migration-analysis/
 
 ## How to Review This Project Quickly
 
-If you are reviewing this repo as a recruiter or hiring manager, the fastest path is:
+1. Read the **Executive Summary**
+2. Review the **Visual Highlights**
+3. Skim the **Key Findings**
+4. Open the **Tableau Story**
+5. Review the notebooks if you want to inspect the technical workflow
 
-1. Read the Executive Summary
-2. Skim the Key Findings
-3. Open the Tableau Story
-4. Review the notebooks if you want to inspect the technical workflow
-
-⸻
+---
 
 ## Limitations
 
@@ -225,16 +237,16 @@ If you are reviewing this repo as a recruiter or hiring manager, the fastest pat
 - County averages may hide important within-county variation.
 - The project does not directly measure investor activity, buyer origin by state, or parcel-level behavior.
 
-⸻
+---
 
 ## Future Improvements
 
-- add a single end-to-end summary notebook
+- add a single end-to-end executive summary notebook for faster portfolio review
 - export regression tables and cluster summaries to a dedicated results folder
 - incorporate affordability or transaction-level data for deeper explanation
 - expand time horizon as more county-level data becomes available
 
-⸻
+---
 
 ## Author
 
